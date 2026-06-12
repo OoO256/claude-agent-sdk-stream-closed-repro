@@ -1,0 +1,20 @@
+{
+  "name": "claude-agent-sdk-stream-closed-repro",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Reproduction + deterministic harness + proposed fix for the Claude Agent SDK closing the CLI control channel mid-conversation (in-process MCP tool calls die with 'Stream closed').",
+  "scripts": {
+    "patch": "node apply-patch.mjs",
+    "repro:a": "node repro.mjs",
+    "repro:b": "node repro-background.mjs",
+    "harness:a": "SCENARIO=A node harness.mjs",
+    "harness:b": "SCENARIO=B node harness.mjs",
+    "hang": "SCENARIO=HANG node hang.mjs",
+    "regress": "node reg.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "0.3.165",
+    "zod": "^4.0.0"
+  }
+}

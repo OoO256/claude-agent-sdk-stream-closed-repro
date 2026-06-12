@@ -1,0 +1,6 @@
+node_modules/
+package-lock.json
+*.out
+*.log
+# pristine bundle snapshot created by apply-patch.mjs (Anthropic's distributed code — do not commit)
+sdk.mjs.orig
