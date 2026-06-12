@@ -4,3 +4,6 @@ package-lock.json
 *.log
 # pristine bundle snapshot created by apply-patch.mjs (Anthropic's distributed code — do not commit)
 sdk.mjs.orig
+
+# issue drafts (contain internal context — never commit)
+.issue-*.md

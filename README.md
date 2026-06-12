@@ -66,6 +66,29 @@ to `node_modules/.../sdk.mjs.orig` (git-ignored — it is Anthropic's distribute
 code) and always patches from that snapshot. To restore, reinstall or copy
 `sdk.mjs.orig` back over `sdk.mjs`.
 
+## Inspecting the actual bundle change
+
+This patches the published **bundle** (`node_modules/@anthropic-ai/claude-agent-sdk/sdk.mjs`,
+minified) — the code that actually runs — not the SDK's TypeScript source (which
+isn't public). The bundle and its diff are deliberately **not** committed here
+(Anthropic's distributed code); two things let you review the change anyway:
+
+- **The exact before→after is `apply-patch.mjs` itself.** Each `replaceOnce(anchor, replacement)`
+  is a precise string edit against the minified bundle — you can read precisely
+  what changes without installing anything.
+- **To see the applied diff on your machine**, the patch leaves the pristine
+  snapshot next to the patched file, so (splitting on `;` since the bundle is
+  one-statement-per-megabyte):
+
+  ```bash
+  npm run patch
+  SDK=node_modules/@anthropic-ai/claude-agent-sdk
+  diff <(tr ';' '\n' < "$SDK/sdk.mjs.orig") <(tr ';' '\n' < "$SDK/sdk.mjs")
+  ```
+
+For the readable, source-level form of the same change (to port into the TS
+source), see [SOLUTION.md](./SOLUTION.md).
+
 ## Results
 
 | Test | Unpatched | Patched |
